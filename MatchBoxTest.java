@@ -53,6 +53,21 @@ public class MatchBoxTest {
         matchbox1.draw(3);
         assertEquals(matchbox1.count(), 0);
     }
+
+    @Test
+    public void inspectionTest() {
+        // should create reliable copies of the box
+        MatchBox original = new MatchBox(10);
+        MatchBox copy = original.clone();
+
+        // Manipulate copy and original differently
+        original.draw(1);
+        copy.draw(3);
+
+        // The objects should be independent
+        assertEquals(original.count(), 9);
+        assertEquals(copy.count(), 7);
+    }
 }
 
 

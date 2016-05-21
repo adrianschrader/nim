@@ -24,11 +24,7 @@ public class InitialConditions {
      */
     @Before
     public void setUp() {
-        automate1 = new RandomPlayer("George");
-        automate2 = new RandomPlayer("Mike", automate1.getMatchBox());
 
-        Player winner = automate1.play(automate2);
-        System.out.println(winner.getName());
     }
 
     /**

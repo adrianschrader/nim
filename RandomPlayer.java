@@ -10,14 +10,12 @@ public class RandomPlayer extends Player {
         super(name);
     }
 
-    public RandomPlayer(String name, MatchBox matchBox) {
-        super(name, matchBox);
+    @Override
+    protected int drawMatches(final MatchBox box) {
+        return (int) Math.floor(Math.random() * 3.0d + 1.0d);
     }
 
-    protected void drawMatches(MatchBox box) {
-        box.draw((int) Math.floor(Math.random() * 3.0d + 1.0d));
-    }
-
+    @Override
     public MatchBox generateMatchBox() {
         return new MatchBox(12);
     }

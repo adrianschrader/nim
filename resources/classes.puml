@@ -1,0 +1,47 @@
+@startuml
+
+skinparam monochrome false
+
+class MatchBox {
+    - int matches
+    __
+    + Matches(int matches)
+    + MatchBox clone()
+    ..
+    + int count()
+    + int draw(int sticks)
+}
+
+abstract class Player {
+    - String name
+    __
+    + Player(String name)
+    + String getName()
+    ..
+    + Player play(Player nextPlayer)
+    + Player play(Player nextPlayer, MatchBox matchBox)
+    {abstract}+ MatchBox generateMatchBox()
+    {abstract}# int drawMatches(final MatchBox matchBox)
+}
+
+class AIPlayer {
+    + AIPlayer(String name)
+    ..
+    + MatchBox generateMatchBox()
+    # int drawMatches(final MatchBox matchBox)
+    # int getNextKeyNumber(int sticks)
+}
+
+class RandomPlayer {
+    + RandomPlayer(String name)
+    ..
+    + MatchBox generateMatchBox()
+    # int drawMatches(final MatchBox matchBox)
+}
+
+AIPlayer --|> Player
+RandomPlayer --|> Player
+
+Player ..> MatchBox : play, generate
+
+@enduml
