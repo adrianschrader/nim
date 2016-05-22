@@ -1,4 +1,4 @@
-
+package com.nim.actors;
 /**
  * Write a description of class AutomatedPlayer here.
  *

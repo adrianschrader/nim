@@ -18,8 +18,8 @@ abstract class Player {
     + Player(String name)
     + String getName()
     ..
-    + Player play(Player nextPlayer)
-    + Player play(Player nextPlayer, MatchBox matchBox)
+    + Player playRound(Player nextPlayer)
+    + Player playRound(Player nextPlayer, MatchBox matchBox)
     {abstract}+ MatchBox generateMatchBox()
     {abstract}# int drawMatches(final MatchBox matchBox)
 }

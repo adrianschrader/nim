@@ -1,3 +1,5 @@
+package com.nim.actors;
+
 /**
  * @author Adrian Schrader
  * @version 1.0.0
@@ -19,7 +21,7 @@ public class AIPlayer extends Player {
     }
 
     /**
-     * @return
+     * @return The matchbox the player is allowed to pick in the beginning of every second round.
      */
     @Override
     public MatchBox generateMatchBox() {

@@ -1,6 +1,9 @@
+package com.nim.actors;
+
+import org.jetbrains.annotations.Contract;
 
 /**
- * The MatchBox is filled once with matches which can be drawn in sets of one to three.
+ * The MatchBox is filled once with matches. They can be drawn in sets of one to three.
  *
  * @author Adrian Schrader
  * @version 1.0.0
@@ -56,6 +59,7 @@ public class MatchBox implements Cloneable {
         }
     }
 
+    @Contract(pure = true)
     private int setBounds(int n, int lower, int upper) {
         return (n < lower) ? lower : (n > upper) ? upper : n;
     }

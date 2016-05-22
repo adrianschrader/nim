@@ -1,3 +1,7 @@
+package com.nim.actors;
+
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -5,26 +9,23 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-/**
- * Created by adrian on 21/05/16.
- */
 @RunWith(Parameterized.class)
-public class PlayerTest {
+public class PlayersTest {
 
     private Class<?> playerType;
 
-    public PlayerTest(Class<?> playerType) {
+    public PlayersTest(Class<?> playerType) {
         this.playerType = playerType;
     }
 
     @Parameterized.Parameters
-    public static Collection data() {
+    public static @NotNull Collection data() {
         return Arrays.asList(RandomPlayer.class, AIPlayer.class);
     }
 
+    @Contract(" -> !null")
     private Player generatePlayer() throws Exception {
         return (Player) this.playerType.getConstructor(new Class<?>[]{String.class}).newInstance("John Doe");
     }
@@ -46,19 +47,5 @@ public class PlayerTest {
         Player player = generatePlayer();
         if (player.generateMatchBox().count() < 10)
             fail("MatchBox has to have at least 10 matches at the start of the game. ");
-    }
-
-    @Test
-    public void getName() throws Exception {
-        Player player = generatePlayer();
-        assertEquals(player.getName(), "John Doe");
-    }
-
-    @Test
-    public void play() throws Exception {
-        Player playerA = generatePlayer(),
-                playerB = generatePlayer(),
-                result1 = playerA.play(playerB);
-
     }
 }

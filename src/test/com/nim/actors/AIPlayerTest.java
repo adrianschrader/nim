@@ -1,3 +1,5 @@
+package com.nim.actors;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -7,6 +9,7 @@ import static org.junit.Assert.assertEquals;
  * @version 1.0.0
  */
 public class AIPlayerTest {
+
     @Test
     public void drawMatches() throws Exception {
         AIPlayer player = new AIPlayer("");
