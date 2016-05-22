@@ -19,4 +19,9 @@ public class RandomPlayer extends Player {
     public MatchBox generateMatchBox() {
         return new MatchBox(12);
     }
+
+    @Override
+    public void afterRound(boolean won) {
+
+    }
 }

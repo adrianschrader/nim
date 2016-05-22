@@ -39,20 +39,13 @@ public class PlayerTest {
         playerA.play(matchBox);
         assertEquals(matchBox.count(), 9);
     }
-}
 
-class PlayerImpl extends Player {
-    public PlayerImpl() {
-        super("John Doe");
-    }
-
-    @Override
-    protected int drawMatches(MatchBox box) {
-        return 1;
-    }
-
-    @Override
-    public MatchBox generateMatchBox() {
-        return new MatchBox(10);
+    @Test
+    public void playRound() throws Exception {
+        Player playerA = new PlayerImpl();
+        Player playerB = new PlayerImpl();
+        Player winner = playerA.playRound(playerB);
+        // Because each PlayerImpl removes one match per round and chooses a matchbox of size 10
+        assertEquals(winner, playerA);
     }
 }

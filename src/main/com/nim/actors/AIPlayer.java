@@ -35,11 +35,16 @@ public class AIPlayer extends Player {
      * @param sticks # of matches in the box
      * @return the next key number you should end up with at the end of the turn
      */
-    protected int getNextKeyNumber(int sticks) {
+    int getNextKeyNumber(int sticks) {
         // Get the index for the number of sticks (will be non-integer for non-key numbers)
         double n = 1.0d * (sticks - MatchBox.DRAW_MIN) / (MatchBox.DRAW_MIN + MatchBox.DRAW_MAX);
 
         // Get the smaller key number by flooring the result
         return (int) Math.floor(n) * (MatchBox.DRAW_MIN + MatchBox.DRAW_MAX) + MatchBox.DRAW_MIN;
+    }
+
+    @Override
+    public void afterRound(boolean won) {
+
     }
 }

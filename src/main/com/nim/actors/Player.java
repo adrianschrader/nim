@@ -71,8 +71,9 @@ public abstract class Player {
      */
     public final boolean play(MatchBox matchBox) {
         // If the other player had to take the last match, you win.
-        if (matchBox.count() == 0)
+        if (matchBox.count() == 0) {
             return true;
+        }
 
         // Let the player make his decision
         int numberOfMatches = this.drawMatches(matchBox.clone());
@@ -93,8 +94,16 @@ public abstract class Player {
      * @return the winner of the round
      */
     public final Player play(MatchBox matchBox, Player nextPlayer) {
+        boolean won = this.play(matchBox);
+
+        // Invoke method calls to the subclasses
+        if (won) {
+            this.afterRound(true);
+            nextPlayer.afterRound(false);
+        }
+
         // If a winner could not be determined, try again.
-        return this.play(matchBox) ? this : nextPlayer.play(matchBox, this);
+        return won ? this : nextPlayer.play(matchBox, this);
     }
 
     /**
@@ -112,4 +121,6 @@ public abstract class Player {
      * @return Matchbox object used in the next round
      */
     public abstract MatchBox generateMatchBox();
+
+    public abstract void afterRound(boolean won);
 }

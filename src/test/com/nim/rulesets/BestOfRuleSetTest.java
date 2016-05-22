@@ -1,5 +1,7 @@
 package com.nim.rulesets;
 
+import com.nim.actors.Player;
+import com.nim.actors.PlayerImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -100,4 +102,14 @@ public class BestOfRuleSetTest {
         assertEquals(rules.getWinner(), player2);
     }
 
+    @Test
+    public void implementationTest() throws Exception {
+        PlayerImpl player1 = new PlayerImpl();
+        PlayerImpl player2 = new PlayerImpl();
+        BestOfRuleSet rules = new BestOfRuleSet(3);
+
+        Player winner = player1.playGame(player2, rules);
+        assertEquals(rules.getRoundsLeft(), 0);
+        assertEquals(winner, player1);
+    }
 }

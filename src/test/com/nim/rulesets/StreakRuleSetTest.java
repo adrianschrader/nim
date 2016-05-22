@@ -1,7 +1,7 @@
 package com.nim.rulesets;
 
-import com.nim.actors.MatchBox;
 import com.nim.actors.Player;
+import com.nim.actors.PlayerImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -78,21 +78,5 @@ public class StreakRuleSetTest {
         rules.registerWin(player2);
         rules.registerWin(player2);
         assertEquals(rules.getWinner(), player2);
-    }
-}
-
-class PlayerImpl extends Player {
-    public PlayerImpl() {
-        super("John Doe");
-    }
-
-    @Override
-    protected int drawMatches(MatchBox box) {
-        return 1;
-    }
-
-    @Override
-    public MatchBox generateMatchBox() {
-        return new MatchBox(10);
     }
 }

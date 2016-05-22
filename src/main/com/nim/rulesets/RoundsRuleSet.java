@@ -6,13 +6,13 @@ import com.sun.istack.internal.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BestOfRuleSet implements RuleSet {
+public class RoundsRuleSet implements RuleSet {
 
     private int rounds;
     private int currentRound;
     private Map<Player, Integer> scores;
 
-    public BestOfRuleSet(int rounds) {
+    public RoundsRuleSet(int rounds) {
         this.rounds = rounds;
         this.currentRound = 0;
         this.scores = new HashMap<Player, Integer>();
@@ -36,14 +36,7 @@ public class BestOfRuleSet implements RuleSet {
 
     @Override
     public boolean isWinnerDetermined() {
-        // There is no win registered, therefore no winner to be determined
-        if (this.scores.isEmpty()) return false;
-            // No other player can win, because a majority has already been established
-        else if (this.hasMajorityWinner()) return true;
-            // No more rounds to run
-        else if (this.getRoundsLeft() < 1 && !hasDuplicateScores()) return true;
-
-        return false;
+        return (!this.scores.isEmpty() && this.currentRound == this.rounds);
     }
 
     @Nullable
@@ -67,20 +60,5 @@ public class BestOfRuleSet implements RuleSet {
         return scores;
     }
 
-    private boolean hasMajorityWinner() {
-        int majorityScore = (int) Math.floor(rounds / 2.0d) + 1;
-        for (int i = majorityScore; i < rounds; i++) {
-            if (this.scores.containsValue(i))
-                return true;
-        }
-        return false;
-    }
-
-    private boolean hasDuplicateScores() {
-        final int MAXZIP = 99999;
-        boolean[] bitmap = new boolean[MAXZIP + 1];  // Java guarantees init to false
-        for (int item : this.scores.values())
-            if (!(bitmap[item] ^= true)) return true;
-        return false;
-    }
 }
+
