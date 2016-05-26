@@ -1,6 +1,5 @@
 @startuml
 
-title Anwendungsfalldiagramm
 skinparam monochrome true
 top to bottom direction
 
@@ -13,6 +12,7 @@ rectangle Nim-Spiel {
     (Spielzug durchführen) as playTurn
     (Größe der Schachtel bestimmen) as setBox
     (Anzahl zurückgeben) as count
+    (Gewinner zurückgeben) as win
 }
 
 Box -up-> fillBox
@@ -20,9 +20,11 @@ Box -up-> drawMatch
 Box --> count
 Player --> playTurn
 Player --> setBox
+Player --> win
 
 setBox ..> fillBox
 playTurn ..> drawMatch
 playTurn ..> count
+win ..> count
 
 @enduml

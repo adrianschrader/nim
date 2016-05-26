@@ -1,15 +1,15 @@
 @startuml
 
 skinparam monochrome false
+top to bottom direction
 
-class MatchBox {
+class MatchBox <<Cloneable>> {
     - int matches
     __
     + Matches(int matches)
-    + MatchBox clone()
-    ..
     + int count()
     + int draw(int sticks)
+    + MatchBox clone()
 }
 
 abstract class Player {
@@ -17,31 +17,71 @@ abstract class Player {
     __
     + Player(String name)
     + String getName()
-    ..
+    + Player playGame(Player nextPlayer, RuleSet rules)
     + Player playRound(Player nextPlayer)
-    + Player playRound(Player nextPlayer, MatchBox matchBox)
+    + Player play(MatchBox matchBox)
+    + Player play(MatchBox matchBox, Player nextPlayer)
     {abstract}+ MatchBox generateMatchBox()
     {abstract}# int drawMatches(final MatchBox matchBox)
 }
 
+interface RuleSet {
+    {abstract}+ boolean isWinnerDetermined()
+    {abstract}+ Player getWinner()
+    {abstract}+ void registerWin(Player)
+}
+
 class AIPlayer {
     + AIPlayer(String name)
-    ..
+    # int getNextKeyNumber(int sticks)
+    .. overrides ..
     + MatchBox generateMatchBox()
     # int drawMatches(final MatchBox matchBox)
-    # int getNextKeyNumber(int sticks)
 }
 
 class RandomPlayer {
     + RandomPlayer(String name)
-    ..
+    .. overrides ..
     + MatchBox generateMatchBox()
     # int drawMatches(final MatchBox matchBox)
 }
 
+class CmdPlayer {
+    - Scanner scanner
+    __
+    + AIPlayer(String name)
+    .. overrides ..
+    + MatchBox generateMatchBox()
+    # int drawMatches(final MatchBox matchBox)
+}
+
+class StreakRuleSet {
+    + StreakRuleSet(int length)
+    + int getLength()
+    .. implements ..
+    + boolean isWinnerDetermined()
+    + Player getWinner()
+    + void registerWin(Player)
+}
+
+class BestOfRuleSet {
+    + StreakRuleSet(int length)
+    + int getLength()
+    .. implements ..
+    + boolean isWinnerDetermined()
+    + Player getWinner()
+    + void registerWin(Player)
+}
+
 AIPlayer --|> Player
 RandomPlayer --|> Player
+CmdPlayer --|> Player
 
-Player ..> MatchBox : play, generate
+StreakRuleSet -right-|> RuleSet
+BestOfRuleSet -left-|> RuleSet
+
+Player .left.> MatchBox : play, \ndrawMatches, \ngenerateMatchBox
+Player ..> RuleSet : playGame
+RuleSet ..> Player : registerWin
 
 @enduml
