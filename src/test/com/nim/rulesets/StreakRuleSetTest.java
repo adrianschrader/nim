@@ -11,6 +11,7 @@ import static org.junit.Assert.assertEquals;
  * @version 1.0.0
  */
 public class StreakRuleSetTest {
+
     public StreakRuleSetTest() {
 
     }
@@ -58,13 +59,24 @@ public class StreakRuleSetTest {
 
     @Test
     public void isWinnerDeterminedWithHigherStreak() {
-        Player player1 = new PlayerImpl();
         Player player2 = new PlayerImpl();
         RuleSet rules = new StreakRuleSet(2);
 
         rules.registerWin(player2);
         rules.registerWin(player2);
         rules.registerWin(player2);
+        assertEquals(rules.isWinnerDetermined(), true);
+    }
+
+    @Test
+    public void isWinnerDeterminedWithOverriddenStreak() {
+        Player player1 = new PlayerImpl();
+        Player player2 = new PlayerImpl();
+        RuleSet rules = new StreakRuleSet(2);
+
+        rules.registerWin(player2);
+        rules.registerWin(player2);
+        rules.registerWin(player1);
         assertEquals(rules.isWinnerDetermined(), true);
     }
 

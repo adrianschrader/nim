@@ -1,5 +1,7 @@
 package com.nim.actors;
 
+import com.nim.rulesets.RuleSet;
+import com.nim.rulesets.StreakRuleSet;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -29,6 +31,16 @@ public class PlayerTest {
 
         Player winner = playerA.play(matchBox, playerB);
         assertEquals(winner, playerB);
+    }
+
+    @Test
+    public void playGameWithPerfectPlayers() {
+        Player player1 = new AIPlayer("");
+        Player player2 = new AIPlayer("");
+        RuleSet rules = new StreakRuleSet(2);
+
+        // Throws overflow exception if there are too many rounds
+        player1.playGame(player2, rules);
     }
 
     @Test

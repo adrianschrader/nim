@@ -3,6 +3,9 @@ package com.nim.rulesets;
 import com.nim.actors.Player;
 
 public class StreakRuleSet implements RuleSet {
+    public static final int MAX_ROUNDS = 100;
+
+    private int rounds;
     private int winningLength;
     private int streakLength;
     private Player streakPlayer;
@@ -12,6 +15,7 @@ public class StreakRuleSet implements RuleSet {
         this.winningLength = length;
         this.streakLength = 0;
         this.streakPlayer = null;
+        this.rounds = 0;
     }
 
     public int getLength() {
@@ -20,6 +24,13 @@ public class StreakRuleSet implements RuleSet {
 
     @Override
     public void registerWin(Player player) {
+        // The first player to get a streak wins
+        if (this.isWinnerDetermined())
+            return;
+
+        // Increment the number of rounds
+        this.rounds++;
+
         if (this.streakPlayer != null) {
             if (this.streakPlayer.equals(player)) {
                 // Begin or continue streak and end
@@ -35,7 +46,8 @@ public class StreakRuleSet implements RuleSet {
 
     @Override
     public boolean isWinnerDetermined() {
-        return (streakLength >= winningLength);
+        // When a player gets a streak or the max number of rounds is reached (to prevent overflow)
+        return (streakLength >= winningLength) || rounds > MAX_ROUNDS;
     }
 
     @Override
